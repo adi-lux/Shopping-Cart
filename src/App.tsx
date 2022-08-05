@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {v4 as uuid} from 'uuid';
 import Checkout from './components/Checkout';
@@ -47,65 +47,25 @@ function App() {
         carGenerator('Illuminator 2019', 'Ever got stuck in a dark road? The illuminator will make sure you never get stuck again.', '', 29000),
         carGenerator('The Operator 2020', 'Sturdy but useful, the practical car for the practical person.', '', 30000),
     ]);
-    const [boughtList, setBoughtList] = useState<Car[]>([]);
     // what does an item have ? base price, total bought, id, name, description
 
-    useEffect(() => {
-        const filterIDList = boughtList.map(bought => bought.id);
-        setCarList(carList
-            .filter((car) => !filterIDList.includes(car.id))
-            .concat(boughtList));
-    }, [boughtList]);
-
-    //
-    const clickAdd = ({
-        id,
-        name,
-        description,
-        img,
-        price,
-        bought,
-    }: Car): React.MouseEventHandler<HTMLButtonElement> => () => {
-        // loop through boughtList and increment count if not already
-
-        if (boughtList.length === 0) {
-            setBoughtList([{id, name, description, img, price, bought: bought + 1}]);
-        } else {
-            setBoughtList(boughtList.map((buying) => {
-                if (buying.id === id) {
-                    return {
-                        id: buying.id,
-                        name: buying.name,
-                        description: buying.description,
-                        img: buying.img,
-                        price: buying.price,
-                        bought: (buying.bought + 1),
-                    };
-                } else {
-                    return buying;
-                }
-            }));
-        }
+    const clickAdd = (id: string): React.MouseEventHandler<HTMLButtonElement> => () => {
+        setCarList(carList.map((givenCar) => (givenCar.id === id) ? {
+            ...givenCar,
+            bought: givenCar.bought + 1,
+        } : givenCar));
     };
 
-    const clickRemove = (id: string): React.MouseEventHandler<HTMLButtonElement> => (): void => {
-        setBoughtList((boughtList
-                .map((buying) => {
-                    if (buying.id === id) {
-                        return {
-                            id: buying.id,
-                            name: buying.name,
-                            description: buying.description,
-                            img: buying.img,
-                            price: buying.price,
-                            bought: (buying.bought - 1),
-                        };
-                    } else {
-                        return buying;
-                    }
-                })
-                .filter((buying) => !(buying.id === id && buying.bought < 1))
-        ));
+    const clickRemove = (id: string): React.MouseEventHandler<HTMLButtonElement> => () => {
+        setCarList(carList.map((givenCar) => {
+            if (givenCar.id === id && givenCar.bought <= 1) {
+                return {...givenCar, bought: 0};
+            } else if (givenCar.id === id) {
+                return {...givenCar, bought: givenCar.bought - 1};
+            } else {
+                return givenCar;
+            }
+        }));
     };
 
 
@@ -127,19 +87,19 @@ function App() {
                                (car) => {
                                    return <Card key={car.id}
                                                 car={car}
-                                                minusHandler={clickRemove(car.id)}
-                                                plusHandler={clickAdd(car)}/>;
+                                                minusHandler={clickRemove}
+                                                plusHandler={clickAdd}/>;
                                },
                            )}/>}/>
                 <Route path="checkout"
                        element={
-                           <Checkout boughtList={boughtList.map(
-                               (car) => {
-                                   return <Purchase key={car.id}
-                                                    car={car}
-                                                    minusHandler={clickRemove(car.id)}
-                                                    plusHandler={clickAdd(car)}/>;
-                               })}/>}/>
+                           <Checkout boughtList={carList.filter(car => car.bought > 0)
+                                                        .map((car) => <Purchase
+                                                            key={car.id}
+                                                            car={car}
+                                                            minusHandler={clickRemove}
+                                                            plusHandler={clickAdd}/>)
+                           }/>}/>
             </Routes>
         </div>
     );

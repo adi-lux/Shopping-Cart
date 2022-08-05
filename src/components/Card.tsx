@@ -11,8 +11,8 @@ type Car = {
 
 type CardProps = {
     car: Car
-    plusHandler: React.MouseEventHandler<HTMLButtonElement>
-    minusHandler: React.MouseEventHandler<HTMLButtonElement>
+    plusHandler: (id:string) => React.MouseEventHandler<HTMLButtonElement>
+    minusHandler: (id:string) => React.MouseEventHandler<HTMLButtonElement>
 }
 
 const Card = ({car, plusHandler, minusHandler}: CardProps) => {
@@ -23,9 +23,9 @@ const Card = ({car, plusHandler, minusHandler}: CardProps) => {
             <p>{name} ({price})</p>
             <img src={img} alt="img"/>
             <div className="flex justify-around w-full">
-                <button onClick={plusHandler}>+</button>
+                <button onClick={plusHandler(id)}>+</button>
                 <p>{bought}</p>
-                <button onClick={minusHandler}>-</button>
+                <button onClick={minusHandler(id)}>-</button>
             </div>
         </div>
     );

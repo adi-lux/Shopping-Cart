@@ -11,12 +11,12 @@ type Car = {
 
 type Purchase = {
     car: Car
-    plusHandler: React.MouseEventHandler<HTMLButtonElement>
-    minusHandler: React.MouseEventHandler<HTMLButtonElement>
+    plusHandler: (id: string) => React.MouseEventHandler<HTMLButtonElement>
+    minusHandler: (id: string) => React.MouseEventHandler<HTMLButtonElement>
 }
 
 const Purchase = ({car, plusHandler, minusHandler}: Purchase) => {
-    const {name, img, description, bought, price} = car;
+    const {id, name, img, description, bought, price} = car;
     return (
 
         <div className="bg-light m-2 grid max-h-56 grid-rows-3  grid-cols-3 self-start p-2 rounded-md">
@@ -25,8 +25,8 @@ const Purchase = ({car, plusHandler, minusHandler}: Purchase) => {
             <p className="col-span-2 row-span-2 md: text-xs  sm:text-xs lg: text-md grid place-content-center">Description:
                 {description}</p>
             <div className="flex p-3 align-middle gap-4">
-                <button onClick={plusHandler}>+</button>
-                <button onClick={minusHandler}>-</button>
+                <button onClick={plusHandler(id)}>+</button>
+                <button onClick={minusHandler(id)}>-</button>
             </div>
             <p className="col-start-3 place-self-center justify-self-start">total: {bought} / {bought * price}</p>
         </div>
