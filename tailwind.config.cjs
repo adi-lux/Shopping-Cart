@@ -3,11 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx, ts,tsx}"],
   theme: {
     colors: {
-      'dark-green': '#3F826D',
-      'skin': '#F2D0A4',
-      'light': '#F7F7FF',
-      'dark-red': '#C03221',
-      'dark-gray': '#434343',
+      'dark-green': '#231651',
+      'skin': '#CA9CE1',
+      'light': '#fcf3ff',
+      'dark-red': '#383379',
+      'dark-gray': '#252627',
     },
     plugins: [],
     purge: {

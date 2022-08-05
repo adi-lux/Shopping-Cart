@@ -1,30 +1,14 @@
-const StorePage = () => {
+type CarList = {
+    carList: JSX.Element[]
+}
+
+const StorePage = ({carList}: CarList) => {
     return (
-        <div className='grid w-full min-h-full'>
-            <div className='grid grid-cols-5 place-items-center gap-20'>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-                <div>s</div>
-
-
+        <div className="grid w-full min-h-full">
+            <div
+                className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-20 p-14">
+                {carList}
             </div>
-            <div className='flex place-self-center max-h-10'>
-                <button className='bg-dark-red border-r-light border-r-2'>{'<'}</button>
-
-                <button className='bg-dark-red border-l-light border-l-2'>{'>'}</button>
-            </div>
-        </div>)
+        </div>);
 };
 export default StorePage;
