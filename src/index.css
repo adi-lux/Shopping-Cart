@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Alma-Mono';
+    src: url("../public/AlmaMono-Bold.otf");
+}
