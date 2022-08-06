@@ -1,13 +1,13 @@
-import {HashRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import App from './App';
 
 const RouteSwitch = () => {
   return (
-      <HashRouter>
+      <BrowserRouter>
           <Routes>
               <Route path="/*" element={<App/>}/>
           </Routes>
-      </HashRouter>
+      </BrowserRouter>
   );
 };
 

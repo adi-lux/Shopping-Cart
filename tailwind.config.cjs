@@ -10,6 +10,12 @@ module.exports = {
       'dark-gray': '#252627',
     },
     plugins: [],
+    purge: {
+      enabled: true,
+      content: [
+        './**/*.html'
+      ]
+    },
     extend: {
       backgroundImage: {
         'red-car': "url('/src/assets/car.jpg')"
