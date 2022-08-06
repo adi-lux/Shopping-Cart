@@ -19,9 +19,9 @@ const Card = ({car, plusHandler, minusHandler}: CardProps) => {
     const {id, name, img, price, bought} = car;
     return (
         <div id={id}
-             className="bg-skin aspect-square w-full rounded-2xl shadow-sm shadow-dark-gray place-items-center grid">
+             className="bg-skin text-center aspect-square w-full rounded-2xl shadow-sm shadow-dark-gray place-items-center grid">
             <p>{name} ({price})</p>
-            <img src={img} alt="img"/>
+            <img className='h-3/5' src={img} alt="img"/>
             <div className="flex justify-around w-full">
                 <button onClick={plusHandler(id)}>+</button>
                 <p>{bought}</p>
